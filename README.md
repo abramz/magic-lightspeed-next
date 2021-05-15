@@ -1,4 +1,4 @@
-Put a Project Lightspeed behind login so it can be private
+Put a Project Lightspeed stream behind login so it can be private
 
 For now, it uses an allowlist of emails passed by an environment variable
 
@@ -8,4 +8,4 @@ For now, it uses an allowlist of emails passed by an environment variable
 - Stream w/ [Project Lightspeed](https://github.com/GRVYDEV/Project-Lightspeed)
   - assumes the Ingest & WebRTC servers are running somewhere else
 
-Based on various next.js & magic.link examples
+Based on various next.js & magic.link examples as well as [Project Lightspeed React](https://github.com/GRVYDEV/Lightspeed-react)
