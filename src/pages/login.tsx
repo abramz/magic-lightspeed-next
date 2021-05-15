@@ -9,41 +9,44 @@ export default function Login() {
   const [email, setEmail] = React.useState('')
   const [isLoggingIn, setIsLoggingIn] = React.useState(false)
 
-  const handleLogin = React.useCallback(async () => {
-    event.preventDefault()
+  const handleLogin = React.useCallback(
+    async (event) => {
+      event.preventDefault()
 
-    if (!email) {
-      return
-    }
-
-    try {
-      setIsLoggingIn(true)
-
-      const checkEmailRes = await fetch(`/api/checkEmail?email=${email}`, {
-        headers: { 'Content-Type': APPLICATION_JSON },
-      })
-
-      if (!checkEmailRes.ok) {
-        throw new Error('Not allowed')
+      if (!email) {
+        return
       }
 
-      const didToken = await magic.auth.loginWithMagicLink({
-        email,
-        redirectURI: new URL('/callback', window.location.origin).href,
-      })
+      try {
+        setIsLoggingIn(true)
 
-      const res = await fetch('/api/login', {
-        headers: {
-          'Content-Type': APPLICATION_JSON,
-          Authorization: 'Bearer ' + didToken,
-        },
-      })
+        const checkEmailRes = await fetch(`/api/checkEmail?email=${email}`, {
+          headers: { 'Content-Type': APPLICATION_JSON },
+        })
 
-      res.ok && Router.push('/')
-    } catch (error) {
-      setIsLoggingIn(false)
-    }
-  }, [email])
+        if (!checkEmailRes.ok) {
+          throw new Error('Not allowed')
+        }
+
+        const didToken = await magic.auth.loginWithMagicLink({
+          email,
+          redirectURI: new URL('/callback', window.location.origin).href,
+        })
+
+        const res = await fetch('/api/login', {
+          headers: {
+            'Content-Type': APPLICATION_JSON,
+            Authorization: 'Bearer ' + didToken,
+          },
+        })
+
+        res.ok && Router.push('/')
+      } catch (error) {
+        setIsLoggingIn(false)
+      }
+    },
+    [email]
+  )
 
   const handleEmailChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

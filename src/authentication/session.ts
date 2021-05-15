@@ -7,17 +7,35 @@ import {
   removeTokenCookie,
 } from './cookies'
 
+export type Session = {
+  issuer: string
+  publicAddress: string
+  email: string
+}
+
 const TOKEN_SECRET = process.env.TOKEN_SECRET
 
-export async function setLoginSession(res: NextApiResponse, session) {
+/**
+ * Convenience method to create a session for the user
+ *
+ * @param res response object
+ * @param session session object
+ */
+export async function setLoginSession(res: NextApiResponse, session: Session) {
   const createdAt = Date.now()
-  // Create a session object with a max age that we can validate later
   const obj = { ...session, createdAt, maxAge: MAX_AGE }
   const token = await Iron.seal(obj, TOKEN_SECRET, Iron.defaults)
 
   setTokenCookie(res, token)
 }
 
+/**
+ * Convenience method to get the user's session if it exists & has not expired
+ *
+ * @param req request object
+ * @returns user's session
+ * @throws an error when the session has expired
+ */
 export async function getLoginSession(req: NextApiRequest) {
   const token = getTokenCookie(req)
 
@@ -34,6 +52,11 @@ export async function getLoginSession(req: NextApiRequest) {
   return session
 }
 
+/**
+ * Convenience method to clear the session cookie
+ *
+ * @param res response object
+ */
 export async function clearLoginSession(res: NextApiResponse) {
   removeTokenCookie(res)
 }

@@ -1,7 +1,6 @@
 import type { MagicUserMetadata } from 'magic-sdk'
 import React from 'react'
 import Router from 'next/router'
-import { magic } from '../magic'
 
 export type Context = {
   userMetadata: MagicUserMetadata
@@ -11,24 +10,42 @@ export type Context = {
 
 const UserContext = React.createContext<Context | undefined>(undefined)
 
-export function UserProvider({ children }) {
+/**
+ * Provides
+ *   - user metadata, if it exsits,
+ *   - a method to get the user metatdata, and
+ *   - a method to log out the user
+ */
+export const UserProvider: React.FC = ({ children }) => {
   const [userMetadata, setUserMetadata] =
     React.useState<MagicUserMetadata | undefined>()
+  const [error, setError] = React.useState<Error | undefined>()
+
+  /**
+   * Fetch the user & if it is not or cannot be retrieved, redirect to the login page
+   */
   const getUser = React.useCallback(async () => {
     const response = await fetch('/api/user')
 
-    if (response.ok) {
-      const data = await response.json()
+    try {
+      if (response.ok) {
+        const data = await response.json()
 
-      if (data.user) {
-        setUserMetadata(data.user)
+        if (data.user) {
+          setUserMetadata(data.user)
 
-        return
+          return
+        }
       }
+    } catch (error) {
+      setError(error)
     }
 
     Router.push('/login')
   }, [])
+  /**
+   * Log the user out
+   */
   const logout = React.useCallback(async () => {
     await fetch('/api/logout')
 
@@ -42,6 +59,11 @@ export function UserProvider({ children }) {
   )
 }
 
+/**
+ * Use the user context
+ *
+ * @returns the user context
+ */
 export function useUser() {
   const context = React.useContext(UserContext)
 
