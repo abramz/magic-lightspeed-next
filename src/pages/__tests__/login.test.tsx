@@ -6,6 +6,7 @@ import { magic } from '../../magic'
 import Login from '../login'
 import Router from 'next/router'
 import { server, rest } from '../../../test/server'
+import { EMAIL_ERROR_MESSAGE } from '../../strings/login'
 
 jest.mock('../../magic')
 jest.mock('next/router', () => ({ push: jest.fn() }))
@@ -39,6 +40,9 @@ describe('<Login />', () => {
 
     // expect to be navigate to the index page
     await waitFor(() => expect(Router.push).toHaveBeenCalledWith('/'))
+
+    // expect the error message to not show up
+    expect(screen.queryByText(EMAIL_ERROR_MESSAGE)).not.toBeInTheDocument()
   })
 
   it('should do nothing if the email is not provided', async () => {
@@ -76,6 +80,9 @@ describe('<Login />', () => {
     // expect the submit button to be disabled
     expect(await screen.findByRole('button')).toBeDisabled()
 
+    // expect the error message to appear
+    expect(await screen.findByText(EMAIL_ERROR_MESSAGE)).toBeInTheDocument()
+
     // expect none of the login actions happen
     await waitFor(() =>
       expect(magic.auth.loginWithMagicLink).not.toHaveBeenCalled()
@@ -100,6 +107,9 @@ describe('<Login />', () => {
 
     // expect the submit button to be disabled
     expect(await screen.findByRole('button')).toBeDisabled()
+
+    // expect the error message to appear
+    expect(await screen.findByText(EMAIL_ERROR_MESSAGE)).toBeInTheDocument()
 
     // expect none of the login actions happen
     await waitFor(() =>

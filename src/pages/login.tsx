@@ -1,13 +1,27 @@
 import React from 'react'
 import Router from 'next/router'
-import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+} from '@chakra-ui/react'
 import { magic } from '../magic'
 import { APPLICATION_JSON } from '../constants'
 import Page from '../components/Page'
+import {
+  EMAIL_ERROR_MESSAGE,
+  EMAIL_LABEL,
+  EMAIL_PLACEHOLDER,
+  LOGIN_BUTTON,
+} from '../strings/login'
 
 export default function Login() {
   const [email, setEmail] = React.useState('')
   const [isLoggingIn, setIsLoggingIn] = React.useState(false)
+  const [hasError, setHasError] = React.useState(false)
 
   const handleLogin = React.useCallback(
     async (event) => {
@@ -40,8 +54,14 @@ export default function Login() {
           },
         })
 
-        res.ok && Router.push('/')
-      } catch {}
+        if (res.ok) {
+          Router.push('/')
+        } else {
+          throw new Error('Not logged in')
+        }
+      } catch {
+        setHasError(true)
+      }
 
       setIsLoggingIn(false)
     },
@@ -51,6 +71,7 @@ export default function Login() {
   const handleEmailChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setEmail(event.target.value)
+      setHasError(false)
     },
     []
   )
@@ -66,15 +87,17 @@ export default function Login() {
           py={3}
         >
           <form onSubmit={handleLogin} style={{ width: '100%' }}>
-            <FormControl id="email" isRequired>
-              <FormLabel>Email address</FormLabel>
+            <FormControl id="email" isRequired isInvalid={hasError}>
+              <FormLabel>{EMAIL_LABEL}</FormLabel>
               <Input
                 type="email"
                 value={email}
                 onChange={handleEmailChange}
-                placeholder="Enter your email address"
-                colorScheme="teal"
+                placeholder={EMAIL_PLACEHOLDER}
               />
+              {hasError && (
+                <FormErrorMessage>{EMAIL_ERROR_MESSAGE}</FormErrorMessage>
+              )}
             </FormControl>
             <Button
               type="submit"
@@ -84,7 +107,7 @@ export default function Login() {
               w="100%"
               mt={3}
             >
-              Login
+              {LOGIN_BUTTON}
             </Button>
           </form>
         </Flex>
