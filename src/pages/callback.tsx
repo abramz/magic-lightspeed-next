@@ -3,7 +3,7 @@ import Router from 'next/router'
 import { magic } from 'src/utils/magic'
 import Page from 'src/components/Page'
 
-export default function Callback() {
+export default function Callback(): React.ReactElement | null {
   React.useEffect(() => {
     magic.auth
       .loginWithCredential()

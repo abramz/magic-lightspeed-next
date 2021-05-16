@@ -11,7 +11,7 @@ const EMAIL_ALLOWLIST = (process.env.EMAIL_ALLOWLIST || '').split(',')
 export default async function checkEmail(
   req: NextApiRequest,
   res: NextApiResponse
-) {
+): Promise<void> {
   const { email } = req.query
 
   if (typeof email === 'string' && EMAIL_ALLOWLIST.includes(email)) {

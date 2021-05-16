@@ -4,7 +4,7 @@ import { AppProps } from 'next/app'
 import theme from 'src/utils/theme'
 import { UserProvider } from 'src/hooks/userContext'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps): React.ReactElement | null {
   return (
     <ChakraProvider resetCSS theme={theme}>
       <UserProvider>

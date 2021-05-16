@@ -12,7 +12,7 @@ export default function Page({
   requiresLogin = false,
   isLoading = false,
   children,
-}) {
+}): React.ReactElement | null {
   const { getUser, userMetadata } = useUser()
 
   React.useEffect(() => {

@@ -21,7 +21,10 @@ const TOKEN_SECRET = process.env.TOKEN_SECRET
  * @param res response object
  * @param session session object
  */
-export async function setLoginSession(res: NextApiResponse, session: Session) {
+export async function setLoginSession(
+  res: NextApiResponse,
+  session: Session
+): Promise<void> {
   const createdAt = Date.now()
   const obj = { ...session, createdAt, maxAge: MAX_AGE }
   const token = await Iron.seal(obj, TOKEN_SECRET, Iron.defaults)
@@ -36,7 +39,7 @@ export async function setLoginSession(res: NextApiResponse, session: Session) {
  * @returns user's session
  * @throws an error when the session has expired
  */
-export async function getLoginSession(req: NextApiRequest) {
+export async function getLoginSession(req: NextApiRequest): Promise<Session> {
   const token = getTokenCookie(req)
 
   if (!token) return
@@ -57,6 +60,6 @@ export async function getLoginSession(req: NextApiRequest) {
  *
  * @param res response object
  */
-export async function clearLoginSession(res: NextApiResponse) {
+export async function clearLoginSession(res: NextApiResponse): Promise<void> {
   removeTokenCookie(res)
 }

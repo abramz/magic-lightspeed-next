@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, RenderResult } from '@testing-library/react'
 import { ChakraProvider } from '@chakra-ui/react'
 import { UserProvider } from '../src/hooks/userContext'
 import '@testing-library/jest-dom'
@@ -11,8 +11,10 @@ const Providers = ({ children }) => {
   )
 }
 
-const customRender = (ui, options = {}) =>
-  render(ui, { wrapper: Providers, ...options })
+const customRender = (
+  ui: React.ReactElement<any, string | React.JSXElementConstructor<any>>,
+  options = {}
+): RenderResult => render(ui, { wrapper: Providers, ...options })
 
 export * from '@testing-library/react'
 

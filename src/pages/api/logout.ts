@@ -11,7 +11,7 @@ import { getLoginSession, clearLoginSession } from 'src/authentication/session'
 export default async function logout(
   req: NextApiRequest,
   res: NextApiResponse
-) {
+): Promise<void> {
   try {
     const session = await getLoginSession(req)
 

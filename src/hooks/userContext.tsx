@@ -19,7 +19,7 @@ const UserContext = React.createContext<Context | undefined>(undefined)
 export const UserProvider: React.FC = ({ children }) => {
   const [userMetadata, setUserMetadata] =
     React.useState<MagicUserMetadata | undefined>()
-  const [error, setError] = React.useState<Error | undefined>()
+  const [, setError] = React.useState<Error | undefined>()
 
   /**
    * Fetch the user & if it is not or cannot be retrieved, redirect to the login page
@@ -64,7 +64,7 @@ export const UserProvider: React.FC = ({ children }) => {
  *
  * @returns the user context
  */
-export function useUser() {
+export function useUser(): Context {
   const context = React.useContext(UserContext)
 
   if (context === undefined) {

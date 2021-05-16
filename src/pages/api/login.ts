@@ -8,7 +8,10 @@ import { setLoginSession } from 'src/authentication/session'
  * @param req request object
  * @param res response object
  */
-export default async function login(req: NextApiRequest, res: NextApiResponse) {
+export default async function login(
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> {
   try {
     const didToken = req.headers.authorization.substr(7)
     magic.token.validate(didToken)

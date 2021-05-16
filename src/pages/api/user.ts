@@ -10,7 +10,10 @@ const EMAIL_ALLOWLIST = (process.env.EMAIL_ALLOWLIST || '').split(',')
  * @param req request object
  * @param res response object
  */
-export default async function user(req: NextApiRequest, res: NextApiResponse) {
+export default async function user(
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<void> {
   const session = await getLoginSession(req)
 
   if (session) {

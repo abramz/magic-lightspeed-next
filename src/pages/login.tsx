@@ -18,7 +18,7 @@ import {
   LOGIN_BUTTON,
 } from 'src/strings/login'
 
-export default function Login() {
+export default function Login(): React.ReactElement | null {
   const [email, setEmail] = React.useState('')
   const [isLoggingIn, setIsLoggingIn] = React.useState(false)
   const [hasError, setHasError] = React.useState(false)
