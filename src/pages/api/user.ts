@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getLoginSession } from '../../authentication/session'
+import logout from './logout'
 
 const EMAIL_ALLOWLIST = (process.env.EMAIL_ALLOWLIST || '').split(',')
 
@@ -14,12 +15,13 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
 
   if (session) {
     const { email, issuer } = session
-
-    // invalidate a session if the email has been removed from the allow list
     if (EMAIL_ALLOWLIST.includes(email)) {
       res.status(200).json({ user: { email, issuer } })
 
       return
+    } else {
+      // invalidate a session if the email has been removed from the allow list
+      return logout(req, res)
     }
   }
 

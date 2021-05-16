@@ -41,9 +41,9 @@ export default function Login() {
         })
 
         res.ok && Router.push('/')
-      } catch (error) {
-        setIsLoggingIn(false)
-      }
+      } catch {}
+
+      setIsLoggingIn(false)
     },
     [email]
   )

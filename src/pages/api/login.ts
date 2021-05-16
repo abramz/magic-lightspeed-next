@@ -20,6 +20,6 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
   } catch (error) {
     console.error(error)
 
-    res.status(error.status || 500).json({ error: error.message })
+    res.status(error.status || 500).end()
   }
 }
