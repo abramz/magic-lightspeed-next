@@ -35,6 +35,7 @@
         "argsIgnorePattern": "^_"
       }
     ],
+    "@typescript-eslint/no-implicit-dependencies": [true, ["src", "test"]],
     "no-console": [
       2,
       {

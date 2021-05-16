@@ -8,13 +8,13 @@ import {
 } from '@chakra-ui/react'
 import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
 
-import { Hero } from '../components/Hero'
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
-import { Footer } from '../components/Footer'
-import Page from '../components/Page'
+import { Hero } from 'src/components/Hero'
+import { Container } from 'src/components/Container'
+import { Main } from 'src/components/Main'
+import { DarkModeSwitch } from 'src/components/DarkModeSwitch'
+import { CTA } from 'src/components/CTA'
+import { Footer } from 'src/components/Footer'
+import Page from 'src/components/Page'
 
 const Index = () => (
   <Page requiresLogin>

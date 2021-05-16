@@ -1,9 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { magic } from '../../authentication/magic'
-import {
-  getLoginSession,
-  clearLoginSession,
-} from '../../authentication/session'
+import { magic } from 'src/authentication/magic'
+import { getLoginSession, clearLoginSession } from 'src/authentication/session'
 
 /**
  * Log out w/ Magic & remove the session cookie

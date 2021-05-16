@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getLoginSession } from '../../authentication/session'
+import { getLoginSession } from 'src/authentication/session'
 import logout from './logout'
 
 const EMAIL_ALLOWLIST = (process.env.EMAIL_ALLOWLIST || '').split(',')

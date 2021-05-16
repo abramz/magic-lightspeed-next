@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex } from '@chakra-ui/layout'
-import { useUser } from '../hooks/userContext'
-import Loading from '../components/Loading'
+import { useUser } from 'src/hooks/userContext'
+import Loading from 'src/components/Loading'
 
 export type PageProps = {
   requiresLogin?: boolean

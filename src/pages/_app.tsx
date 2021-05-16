@@ -1,8 +1,8 @@
 import { ChakraProvider } from '@chakra-ui/react'
 
-import theme from '../theme'
 import { AppProps } from 'next/app'
-import { UserProvider } from '../hooks/userContext'
+import theme from 'src/utils/theme'
+import { UserProvider } from 'src/hooks/userContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

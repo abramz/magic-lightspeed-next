@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { magic } from '../../authentication/magic'
-import { setLoginSession } from '../../authentication/session'
+import { magic } from 'src/authentication/magic'
+import { setLoginSession } from 'src/authentication/session'
 
 /**
  * Log in w/ Magic & set the session cookie
@@ -11,7 +11,8 @@ import { setLoginSession } from '../../authentication/session'
 export default async function login(req: NextApiRequest, res: NextApiResponse) {
   try {
     const didToken = req.headers.authorization.substr(7)
-    await magic.token.validate(didToken)
+    magic.token.validate(didToken)
+
     const metadata = await magic.users.getMetadataByToken(didToken)
     const session = { ...metadata }
 

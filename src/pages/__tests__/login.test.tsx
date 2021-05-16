@@ -1,19 +1,19 @@
 import React from 'react'
 import userEvent from '@testing-library/user-event'
-import { render, screen, waitFor } from '../../../test/testUtils'
-import { TEST_EMAIL } from '../../../test/testData'
-import { magic } from '../../magic'
-import Login from '../login'
 import Router from 'next/router'
+import { render, screen, waitFor } from '../../../test/testUtils'
+import { TEST_EMAIL, DID_TOKEN } from '../../../test/testData'
+import { magic } from '../../magic'
 import { server, rest } from '../../../test/server'
 import { EMAIL_ERROR_MESSAGE } from '../../strings/login'
+import Login from '../login'
 
 jest.mock('../../magic')
 jest.mock('next/router', () => ({ push: jest.fn() }))
 
 describe('<Login />', () => {
   it('should log the user in and go to the index page', async () => {
-    ;(magic.auth.loginWithMagicLink as jest.Mock).mockReturnValue('boop')
+    ;(magic.auth.loginWithMagicLink as jest.Mock).mockResolvedValue(DID_TOKEN)
 
     render(<Login />)
 
@@ -95,7 +95,9 @@ describe('<Login />', () => {
 
   it('should not go to the index page if the login fails', async () => {
     server.use(rest.get('/api/login', (_req, res, ctx) => res(ctx.status(500))))
+
     render(<Login />)
+
     const input = screen.getByPlaceholderText('Enter your email address')
 
     // user enters the email

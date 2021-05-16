@@ -8,15 +8,15 @@ import {
   FormLabel,
   Input,
 } from '@chakra-ui/react'
-import { magic } from '../magic'
-import { APPLICATION_JSON } from '../constants'
-import Page from '../components/Page'
+import { magic } from 'src/utils/magic'
+import { APPLICATION_JSON } from 'src/utils/constants'
+import Page from 'src/components/Page'
 import {
   EMAIL_ERROR_MESSAGE,
   EMAIL_LABEL,
   EMAIL_PLACEHOLDER,
   LOGIN_BUTTON,
-} from '../strings/login'
+} from 'src/strings/login'
 
 export default function Login() {
   const [email, setEmail] = React.useState('')
