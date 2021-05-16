@@ -1,14 +1,14 @@
 import React from 'react'
 import userEvent from '@testing-library/user-event'
 import Router from 'next/router'
-import { render, screen, waitFor } from '../../../test/testUtils'
-import { TEST_EMAIL, DID_TOKEN } from '../../../test/testData'
-import { magic } from '../../magic'
-import { server, rest } from '../../../test/server'
-import { EMAIL_ERROR_MESSAGE } from '../../strings/login'
+import { render, screen, waitFor } from 'test/testUtils'
+import { TEST_EMAIL, DID_TOKEN } from 'test/testData'
+import { server, rest } from 'test/server'
+import { magic } from 'src/utils/magic'
+import { EMAIL_ERROR_MESSAGE } from 'src/strings/login'
 import Login from '../login'
 
-jest.mock('../../magic')
+jest.mock('src/utils/magic')
 jest.mock('next/router', () => ({ push: jest.fn() }))
 
 describe('<Login />', () => {
