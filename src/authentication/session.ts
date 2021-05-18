@@ -11,7 +11,11 @@ export type Session = {
   issuer: string
   publicAddress: string
   email: string
+  createdAt: number
+  maxAge: number
 }
+
+export type CreateSession = Pick<Session, 'issuer' | 'publicAddress' | 'email'>
 
 const TOKEN_SECRET = process.env.TOKEN_SECRET
 
@@ -23,10 +27,10 @@ const TOKEN_SECRET = process.env.TOKEN_SECRET
  */
 export async function setLoginSession(
   res: NextApiResponse,
-  session: Session
+  session: CreateSession
 ): Promise<void> {
   const createdAt = Date.now()
-  const obj = { ...session, createdAt, maxAge: MAX_AGE }
+  const obj: Session = { ...session, createdAt, maxAge: MAX_AGE }
   const token = await Iron.seal(obj, TOKEN_SECRET, Iron.defaults)
 
   setTokenCookie(res, token)
@@ -45,6 +49,7 @@ export async function getLoginSession(req: NextApiRequest): Promise<Session> {
   if (!token) return
 
   const session = await Iron.unseal(token, TOKEN_SECRET, Iron.defaults)
+
   const expiresAt = session.createdAt + session.maxAge * 1000
 
   // Validate the expiration date of the session

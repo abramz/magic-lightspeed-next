@@ -5,6 +5,10 @@ const TOKEN_NAME = 'token'
 
 export const MAX_AGE = 60 * 60 * 24 * 14 // 14 days
 
+const { COOKIE_DOMAIN } = process.env
+
+const defaultOptions = COOKIE_DOMAIN ? { domain: COOKIE_DOMAIN } : {}
+
 /**
  * Set the token cookie in the response
  *
@@ -19,6 +23,7 @@ export function setTokenCookie(res: NextApiResponse, token: string): void {
     secure: process.env.NODE_ENV === 'production',
     path: '/',
     sameSite: 'lax',
+    ...defaultOptions,
   })
 
   res.setHeader('Set-Cookie', cookie)
@@ -33,6 +38,7 @@ export function removeTokenCookie(res: NextApiResponse): void {
   const cookie = serialize(TOKEN_NAME, '', {
     maxAge: -1,
     path: '/',
+    ...defaultOptions,
   })
 
   res.setHeader('Set-Cookie', cookie)
