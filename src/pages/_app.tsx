@@ -1,17 +1,14 @@
-import { ChakraProvider } from '@chakra-ui/react'
-
 import { AppProps } from 'next/app'
-import theme from 'src/utils/theme'
+import { ChakraProvider } from '@chakra-ui/react'
 import { UserProvider } from 'src/hooks/userContext'
+import theme from 'src/utils/theme'
 
-function MyApp({ Component, pageProps }: AppProps): React.ReactElement | null {
-  return (
-    <ChakraProvider resetCSS theme={theme}>
-      <UserProvider>
-        <Component {...pageProps} />
-      </UserProvider>
-    </ChakraProvider>
-  )
-}
+const MyApp: React.FunctionComponent<AppProps> = ({ Component, pageProps }) => (
+  <ChakraProvider resetCSS theme={theme}>
+    <UserProvider>
+      <Component {...pageProps} />
+    </UserProvider>
+  </ChakraProvider>
+)
 
 export default MyApp

@@ -4,7 +4,7 @@ import { magic } from 'src/utils/magic'
 import { server, rest } from 'test/server'
 import { render, waitFor } from 'test/testUtils'
 import { DID_TOKEN } from 'test/testData'
-import Callback from '../callback'
+import Callback from 'src/pages/callback'
 
 jest.mock('src/utils/magic')
 jest.mock('next/router', () => ({ push: jest.fn() }))

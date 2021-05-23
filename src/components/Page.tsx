@@ -8,18 +8,18 @@ export type PageProps = {
   isLoading?: boolean
 }
 
-export default function Page({
+const Page: React.FunctionComponent<PageProps> = ({
   requiresLogin = false,
   isLoading = false,
   children,
-}): React.ReactElement | null {
+}) => {
   const { getUser, userMetadata } = useUser()
 
   React.useEffect(() => {
     if (requiresLogin) {
       getUser()
     }
-  }, [])
+  }, [requiresLogin, getUser])
 
   return (
     <Flex flexDir="column" alignItems="stretch" h="100vh">
@@ -27,3 +27,5 @@ export default function Page({
     </Flex>
   )
 }
+
+export default Page

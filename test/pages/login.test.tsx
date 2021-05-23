@@ -6,7 +6,7 @@ import { TEST_EMAIL, DID_TOKEN } from 'test/testData'
 import { server, rest } from 'test/server'
 import { magic } from 'src/utils/magic'
 import { EMAIL_ERROR_MESSAGE } from 'src/strings/login'
-import Login from '../login'
+import Login from 'src/pages/login'
 
 jest.mock('src/utils/magic')
 jest.mock('next/router', () => ({ push: jest.fn() }))
