@@ -18,6 +18,7 @@ export const Stream: React.FunctionComponent = () => {
   }, [initializeStream])
 
   React.useEffect(() => {
+    console.log(stream)
     videoRef.current.srcObject = stream
   }, [stream])
 
