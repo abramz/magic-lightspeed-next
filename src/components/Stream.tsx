@@ -23,7 +23,7 @@ export const Stream: React.FunctionComponent = () => {
 
   return (
     <AspectRatio>
-      <video ref={videoRef} />
+      <video ref={videoRef} playsInline autoPlay controls />
     </AspectRatio>
   )
 }
