@@ -20,6 +20,7 @@ interface InfoAction extends Action {
 
 export type Context = {
   initializeStream: () => void
+  canInitialize: boolean
 } & State
 
 export const StreamContext = React.createContext<Context | undefined>(undefined)
@@ -132,7 +133,13 @@ const StreamProvider: React.FunctionComponent = ({ children }) => {
   }, [pc, socket])
 
   return (
-    <StreamContext.Provider value={{ ...state, initializeStream }}>
+    <StreamContext.Provider
+      value={{
+        ...state,
+        canInitialize: Boolean(pc && socket),
+        initializeStream,
+      }}
+    >
       {children}
     </StreamContext.Provider>
   )

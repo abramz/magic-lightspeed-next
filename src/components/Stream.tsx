@@ -7,15 +7,15 @@ import StreamProvider, { useStream } from 'src/hooks/streamContext'
 export const Stream: React.FunctionComponent = () => {
   const videoRef = React.useRef<HTMLVideoElement | null>(null)
   const initialized = React.useRef<boolean>(false)
-  const { initializeStream, stream } = useStream()
+  const { initializeStream, canInitialize, stream } = useStream()
 
-  React.useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true
+  if (canInitialize && !initialized.current) {
+    initialized.current = true
 
-      initializeStream()
-    }
-  }, [initializeStream])
+    console.log('initializing the stream')
+
+    initializeStream()
+  }
 
   React.useEffect(() => {
     console.log(stream)
