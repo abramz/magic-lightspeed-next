@@ -11,20 +11,23 @@ export const Stream: React.FunctionComponent = () => {
 
   if (canInitialize && !initialized.current) {
     initialized.current = true
-
     console.log('initializing the stream')
-
     initializeStream()
   }
 
   React.useEffect(() => {
-    console.log(stream)
     videoRef.current.srcObject = stream
   }, [stream])
 
   return (
-    <AspectRatio>
-      <video ref={videoRef} playsInline autoPlay controls />
+    <AspectRatio w="100%" ratio={16 / 9}>
+      <video
+        ref={videoRef}
+        playsInline
+        autoPlay
+        controls
+        poster="/videoPoster.jpg"
+      />
     </AspectRatio>
   )
 }
